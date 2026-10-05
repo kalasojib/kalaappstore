@@ -110,43 +110,6 @@
             color: var(--text-muted);
         }
 
-        .nav-actions {
-            display: flex;
-            gap: 1rem;
-        }
-
-        .btn {
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
-            color: #000;
-        }
-
-        .btn-primary:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background-color: var(--border-color);
-            color: var(--text-main);
-        }
-
-        .btn-secondary:hover {
-            background-color: #3e4451;
-        }
-
         /* Layout */
         .main-container {
             max-width: 1200px;
@@ -283,6 +246,29 @@
             padding-top: 0.8rem;
         }
 
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-hover));
+            color: #000;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
         /* Modal / Popups */
         .modal-overlay {
             position: fixed;
@@ -317,27 +303,6 @@
             color: var(--text-muted);
             font-size: 1.5rem;
             cursor: pointer;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
-            color: var(--text-main);
-        }
-
-        .form-group input, .form-group select, .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            background-color: #010409;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-main);
-            outline: none;
         }
 
         /* Countdown Box */
@@ -384,13 +349,7 @@
             
             <div class="search-container">
                 <i class="fas fa-search"></i>
-                <input type="text" id="searchInput" placeholder="Search Mobile & PC Apps, Games..." onkeyup="filterApps()">
-            </div>
-
-            <div class="nav-actions">
-                <button class="btn btn-primary" onclick="openUploadModal()">
-                    <i class="fas fa-plus-circle"></i> Upload App
-                </button>
+                <input type="text" id="searchInput" placeholder="Search Apps, Games..." onkeyup="filterApps()">
             </div>
         </div>
     </header>
@@ -400,85 +359,41 @@
 
         <!-- Top Ad Space -->
         <div class="ad-banner">
-            <p><i class="fas fa-ad"></i> Ad Space - Place your AdSense or Ad network Banner Code here</p>
+            <p><i class="fas fa-ad"></i> Ad Space - Banner Code Here</p>
         </div>
 
         <!-- Categories Filter -->
         <div class="category-tabs">
-            <button class="tab-btn active" onclick="filterCategory('all')"><i class="fas fa-th-large"></i> All Apps</button>
-            <button class="tab-btn" onclick="filterCategory('android')"><i class="fab fa-android"></i> Android Apps</button>
-            <button class="tab-btn" onclick="filterCategory('pc')"><i class="fab fa-windows"></i> PC / Windows</button>
-            <button class="tab-btn" onclick="filterCategory('games')"><i class="fas fa-gamepad"></i> Games</button>
-            <button class="tab-btn" onclick="filterCategory('ios')"><i class="fab fa-apple"></i> iOS Apps</button>
+            <button class="tab-btn active" onclick="filterCategory('all', event)"><i class="fas fa-th-large"></i> All Apps</button>
+            <button class="tab-btn" onclick="filterCategory('android', event)"><i class="fab fa-android"></i> Android Apps</button>
+            <button class="tab-btn" onclick="filterCategory('pc', event)"><i class="fab fa-windows"></i> PC / Windows</button>
+            <button class="tab-btn" onclick="filterCategory('games', event)"><i class="fas fa-gamepad"></i> Games</button>
         </div>
 
         <!-- Apps List Grid -->
         <div class="apps-grid" id="appsGrid">
-            <!-- App Cards will load dynamically -->
+            <!-- App Cards dynamically loaded -->
         </div>
     </div>
 
-    <!-- Upload Modal -->
-    <div class="modal-overlay" id="uploadModal">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('uploadModal')">&times;</button>
-            <h2 style="margin-bottom: 1.5rem;"><i class="fas fa-upload"></i> Publish New App</h2>
-            <form id="uploadForm" onsubmit="handleUpload(event)">
-                <div class="form-group">
-                    <label>App Title</label>
-                    <input type="text" id="appName" placeholder="e.g., GTA V / Adobe Photoshop" required>
-                </div>
-                <div class="form-group">
-                    <label>Platform Category</label>
-                    <select id="appCategory" required>
-                        <option value="android">Android (APK)</option>
-                        <option value="pc">PC / Windows (EXE/ZIP)</option>
-                        <option value="games">Game</option>
-                        <option value="ios">iOS (IPA)</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Direct Download URL (Drive / MediaFire / MEGA)</label>
-                    <input type="url" id="appDownloadUrl" placeholder="https://drive.google.com/..." required>
-                </div>
-                <div class="form-group">
-                    <label>App Icon Image URL</label>
-                    <input type="url" id="appIconUrl" placeholder="https://via.placeholder.com/150" required>
-                </div>
-                <div class="form-group">
-                    <label>App Size (Unlimited Size Support)</label>
-                    <input type="text" id="appSize" placeholder="e.g., 50 MB, 10 GB, 40 GB, or Unlimited" required>
-                </div>
-                <div class="form-group">
-                    <label>Short Description</label>
-                    <textarea id="appDesc" rows="3" placeholder="Brief details about features..." required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
-                    <i class="fas fa-cloud-upload-alt"></i> Publish Now
-                </button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Download Modal with Timer -->
+    <!-- Direct Download Modal with Timer -->
     <div class="modal-overlay" id="downloadModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal('downloadModal')">&times;</button>
             <div id="modalAppDetails" class="app-header" style="margin-bottom: 1rem;">
-                <!-- App header info dynamically inserted -->
+                <!-- Dynamic Header -->
             </div>
 
-            <!-- Ad Space inside Download Popup -->
             <div class="ad-banner" style="padding: 0.8rem; font-size: 0.8rem; margin-bottom: 1rem;">
                 <p><i class="fas fa-ad"></i> Sponsored Ad Banner</p>
             </div>
 
             <div class="download-box">
-                <p id="downloadStatusText" style="color: var(--text-muted);">Your download link is generating...</p>
-                <div class="timer-circle" id="timerCount">10</div>
+                <p id="downloadStatusText" style="color: var(--text-muted);">Preparing direct download from server...</p>
+                <div class="timer-circle" id="timerCount">5</div>
                 
-                <a id="finalDownloadBtn" href="#" target="_blank" class="btn btn-primary" style="display: none; width: 100%; justify-content: center; padding: 1rem;">
-                    <i class="fas fa-download"></i> Download File Now
+                <a id="finalDownloadBtn" href="#" download class="btn btn-primary" style="display: none; width: 100%; justify-content: center; padding: 1rem;">
+                    <i class="fas fa-download"></i> Direct Download Now
                 </a>
             </div>
         </div>
@@ -486,63 +401,40 @@
 
     <!-- Footer -->
     <footer>
-        <p>&copy; 2026 Kala AppStore. All Rights Reserved. Clean & Safe Software Downloads.</p>
+        <p>&copy; 2026 Kala AppStore. Direct Software & Mobile Downloads.</p>
     </footer>
 
     <script>
-        // Sample Apps Data
+        // এখানে আপনার ওয়েবসাইটের ফাইল ও ছবির নাম যোগ করবেন
         let appsData = [
             {
                 id: 1,
-                name: "GTA San Andreas (PC)",
-                category: "pc",
-                icon: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?w=150&auto=format&fit=crop&q=60",
-                size: "35 GB",
-                version: "v1.08",
-                desc: "Action open-world game for PC/Windows operating system.",
-                downloadUrl: "https://google.com"
-            },
-            {
-                id: 2,
                 name: "CapCut Video Editor",
                 category: "android",
-                icon: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=150&auto=format&fit=crop&q=60",
-                size: "95 MB",
-                version: "v9.2.0",
-                desc: "Professional mobile video editing software with effects and transitions.",
-                downloadUrl: "https://google.com"
-            },
-            {
-                id: 3,
-                name: "PUBG Mobile Lite",
-                category: "games",
-                icon: "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=150&auto=format&fit=crop&q=60",
-                size: "720 MB",
-                version: "v0.25.0",
-                desc: "Lightweight battle royale shooting game for mobile devices.",
-                downloadUrl: "https://google.com"
+                icon: "./capcut.png", // আপনার সাইটের ছবি
+                size: "110 MB",
+                version: "v11.0.0",
+                desc: "Official CapCut Video Editor APK for Android devices.",
+                downloadUrl: "./capcut.apk" // সরাসরি সাইট থেকে ডাউনলোড ফাইল
             }
         ];
 
         let currentCategory = 'all';
 
-        // Load Apps on Page Start
         document.addEventListener('DOMContentLoaded', () => {
             renderApps();
         });
 
-        // Render Apps Function
         function renderApps() {
             const grid = document.getElementById('appsGrid');
             grid.innerHTML = '';
 
             const filteredApps = appsData.filter(app => {
-                const matchesCategory = (currentCategory === 'all' || app.category === currentCategory);
-                return matchesCategory;
+                return (currentCategory === 'all' || app.category === currentCategory);
             });
 
             if (filteredApps.length === 0) {
-                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No apps found in this category.</div>`;
+                grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 3rem;">No apps found.</div>`;
                 return;
             }
 
@@ -572,15 +464,13 @@
             });
         }
 
-        // Filter Categories
-        function filterCategory(category) {
+        function filterCategory(category, event) {
             currentCategory = category;
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+            if(event) event.currentTarget.classList.add('active');
             renderApps();
         }
 
-        // Search Filter
         function filterApps() {
             const query = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.app-card');
@@ -595,7 +485,6 @@
             });
         }
 
-        // Handle Download Modal & Timer
         function triggerDownload(appId) {
             const app = appsData.find(a => a.id === appId);
             if (!app) return;
@@ -606,21 +495,19 @@
             const statusText = document.getElementById('downloadStatusText');
             const downloadBtn = document.getElementById('finalDownloadBtn');
 
-            // Set App details
             detailsContainer.innerHTML = `
-                <img src="${app.icon}" class="app-icon">
+                <img src="${app.icon}" class="app-icon" onerror="this.src='https://via.placeholder.com/150'">
                 <div class="app-info">
                     <h3 class="app-title">${app.name}</h3>
                     <div class="app-meta"><i class="fas fa-file-archive"></i> ${app.size} | Platform: ${app.category.toUpperCase()}</div>
                 </div>
             `;
 
-            // Reset Timer state
-            let timeLeft = 10;
+            let timeLeft = 5;
             timerCount.innerText = timeLeft;
             timerCount.style.display = 'flex';
             downloadBtn.style.display = 'none';
-            statusText.innerText = "Please wait, preparing your download link...";
+            statusText.innerText = "Please wait, starting direct download...";
 
             modal.style.display = 'flex';
 
@@ -631,42 +518,16 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdown);
                     timerCount.style.display = 'none';
-                    statusText.innerText = "Ready to download!";
+                    statusText.innerText = "Click below to download directly!";
                     downloadBtn.href = app.downloadUrl;
+                    downloadBtn.setAttribute("download", app.name);
                     downloadBtn.style.display = 'inline-flex';
                 }
             }, 1000);
         }
 
-        // Modal Handlers
-        function openUploadModal() {
-            document.getElementById('uploadModal').style.display = 'flex';
-        }
-
         function closeModal(modalId) {
             document.getElementById(modalId).style.display = 'none';
-        }
-
-        // Handle New App Submission
-        function handleUpload(event) {
-            event.preventDefault();
-            
-            const newApp = {
-                id: Date.now(),
-                name: document.getElementById('appName').value,
-                category: document.getElementById('appCategory').value,
-                downloadUrl: document.getElementById('appDownloadUrl').value,
-                icon: document.getElementById('appIconUrl').value,
-                size: document.getElementById('appSize').value,
-                version: "v1.0",
-                desc: document.getElementById('appDesc').value
-            };
-
-            appsData.unshift(newApp);
-            renderApps();
-            closeModal('uploadModal');
-            document.getElementById('uploadForm').reset();
-            alert("App successfully published!");
         }
     </script>
 </body>
